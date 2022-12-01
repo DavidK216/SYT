@@ -19,3 +19,4 @@ class Data:
         for i in range(float_list):
             result_list.append(np.mean(float_list[max(0,i-n),i]))
         return result_list
+
