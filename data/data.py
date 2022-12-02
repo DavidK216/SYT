@@ -20,3 +20,19 @@ class Data:
             result_list.append(np.mean(float_list[max(0,i-n),i]))
         return result_list
 
+    '''
+    单条数据特征计算，对每条数据统计之前存在的特征
+    如近30分钟方差，均值
+    '''
+    def feature_column_get(self, sample_datatime):
+        splitdata = self.data[self.data.Datetime < sample_datatime]
+
+        pass
+
+    def label_build(self, sample_datatime, prefer = 'label-10min-4class'):
+        if prefer == 'label-10min-4class':
+            splitdata = self.data[self.data.Datetime < sample_datatime]
+            if 1:
+                return [0,0,0,1]
+        return None
+
