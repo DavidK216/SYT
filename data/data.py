@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+from datetime import datetime,timezone,timedelta
 class Data:
     def __init__(self, df):
         self.data = df
@@ -30,9 +30,26 @@ class Data:
         pass
 
     def label_build(self, sample_datatime, prefer = 'label-10min-4class'):
+        def time2str(datetimeA):
+            return str(datetimeA.year) + '-' + str(datetimeA.month).zfill(2) + '-' + str(datetimeA.day).zfill(2) + 'T' \
+                   + str(datetimeA.hour).zfill(2) \
+                   + ':' + str(datetimeA.minute).zfill(2) + ':' + str(datetimeA.second).zfill(2) + '.' + '000Z'
+
         if prefer == 'label-10min-4class':
-            splitdata = self.data[self.data.Datetime < sample_datatime]
-            if 1:
+            endday = datetime.strptime(sample_datatime, "%Y-%m-%dT%H:%M:%S.%f%z")+ timedelta(minutes=10)
+            enddaystr = time2str(endday)
+            splitdata = self.data[self.data.Datetime < enddaystr]
+            splitdata = self.data[self.data.Datetime > sample_datatime]
+            openlist = list(splitdata.Open)
+            high = max(list(splitdata.High))
+            low = min(list(splitdata.High))
+            if high-low < (openlist[0]+openlist[9])/500:  #
                 return [0,0,0,1]
+            elif high-openlist[0]>openlist[0]/100:
+                return [1,0,0,0]
+            elif openlist[0]-low>openlist[0]/100:
+                return [0,1,0,0]
+            else:
+                return [0,0,1,0]
         return None
 
