@@ -3,3 +3,7 @@ talib是一个金融市场数据的分析软件，能够提供多种市场指标
 API 手册见： https://mrjbq7.github.io/ta-lib/index.html
 
 难点：关注TALIB的输入和输出以及如何将其与其他语言的关键函数相连接。
+
+尝试使用Talib软件来进行金融数据爬取：
+方法接口：
+
