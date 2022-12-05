@@ -40,13 +40,13 @@ class Data:
             endday = datetime.strptime(sample_datatime, "%Y-%m-%dT%H:%M:%S.%f%z")+ timedelta(minutes=10)
             enddaystr = time2str(endday)
             splitdata = self.data[self.data.Datetime < enddaystr]
-            splitdata = self.data[self.data.Datetime > sample_datatime]
+            splitdata = splitdata[splitdata.Datetime > sample_datatime]
             openlist = list(splitdata.Open)
             if len(openlist) < 5:
                 logging.warning("太短了，细狗")
             high = max(list(splitdata.High))
             low = min(list(splitdata.High))
-            if high-low < (openlist[0]+openlist[9])/500:  #
+            if high-low < (openlist[0]+openlist[9])/500:
                 return [0,0,0,1]
             elif high-openlist[0]>openlist[0]/100:
                 return [1,0,0,0]
