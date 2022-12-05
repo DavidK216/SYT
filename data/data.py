@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime,timezone,timedelta
+import logging
 class Data:
     def __init__(self, df):
         self.data = df
@@ -41,6 +42,8 @@ class Data:
             splitdata = self.data[self.data.Datetime < enddaystr]
             splitdata = self.data[self.data.Datetime > sample_datatime]
             openlist = list(splitdata.Open)
+            if len(openlist) < 5:
+                logging.warning("太短了，细狗")
             high = max(list(splitdata.High))
             low = min(list(splitdata.High))
             if high-low < (openlist[0]+openlist[9])/500:  #
