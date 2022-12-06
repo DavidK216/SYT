@@ -22,6 +22,9 @@ class Data:
         if add2data: self.data['k_'+str(n)+'_'+feature_name] = result_list
         return len(result_list)
 
+    def delta_fea(self, feature_name, n, add2data = True):
+        pass
+
     '''
     单条数据特征计算，对每条数据统计之前存在的特征
     如近30分钟方差，均值
