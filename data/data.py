@@ -14,12 +14,13 @@ class Data:
         return scales
 
     '''k线计算'''
-    def kline(self, feature_name, n,):
+    def kline(self, feature_name, n, add2data = True):
         float_list = list(self.data[feature_name])
         result_list = []
         for i in range(len(float_list)):
-            result_list.append(np.mean(float_list[max(0,i-n),i]))
-        return result_list
+            result_list.append(np.mean(float_list[max(0,i-n):i]))
+        if add2data: self.data['k_'+str(n)+'_'+feature_name] = result_list
+        return len(result_list)
 
     '''
     单条数据特征计算，对每条数据统计之前存在的特征
