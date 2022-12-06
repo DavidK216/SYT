@@ -17,7 +17,7 @@ class Data:
     def kline(self, feature_name, n,):
         float_list = list(self.data[feature_name])
         result_list = []
-        for i in range(float_list):
+        for i in range(len(float_list)):
             result_list.append(np.mean(float_list[max(0,i-n),i]))
         return result_list
 
@@ -44,6 +44,7 @@ class Data:
             openlist = list(splitdata.Open)
             if len(openlist) < 5:
                 logging.warning("太短了，细狗")
+                return None
             high = max(list(splitdata.High))
             low = min(list(splitdata.High))
             if high-low < (openlist[0]+openlist[9])/500:
